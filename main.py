@@ -6,7 +6,7 @@ from pymongo import MongoClient
 app = Flask(__name__)
 CORS(app)
 
-MONGO_URI = "mongodb+srv://adil:apEqF2376sbjyR4n@cluster0.p8sqp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+MONGO_URI ="mongodb+srv://mamedoff2910_db_user:Adil291006@adilmammadov.vjv3p8n.mongodb.net/?appName=AdilMammadov"
 client = MongoClient(MONGO_URI)
 db = client.FlexiFitDatabase
 users_collection = db.users
