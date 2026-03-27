@@ -4,7 +4,7 @@ from flask_cors import CORS
 from pymongo import MongoClient
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 MONGO_URI ="mongodb+srv://mamedoff2910_db_user:Adil291006@adilmammadov.vjv3p8n.mongodb.net/?appName=AdilMammadov"
 client = MongoClient(MONGO_URI)
