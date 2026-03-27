@@ -4,7 +4,16 @@ from flask_cors import CORS
 from pymongo import MongoClient
 
 app = Flask(__name__)
+
+# BU SATIR: Dünyadaki her yerin (Vercel dahil) senin API'ne bağlanmasına izin verir.
 CORS(app, resources={r"/*": {"origins": "*"}})
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    return response
 
 MONGO_URI ="mongodb+srv://mamedoff2910_db_user:Adil291006@adilmammadov.vjv3p8n.mongodb.net/?appName=AdilMammadov"
 client = MongoClient(MONGO_URI)
