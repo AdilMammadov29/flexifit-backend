@@ -2,13 +2,15 @@ import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pymongo import MongoClient
+import certifi  # GÜVENLİK KİMLİĞİ EKLENDİ
 
 app = Flask(__name__)
-# Sadece bu satır tüm CORS işlerini kusursuz halleder
-CORS(app) 
+CORS(app)
 
 MONGO_URI = "mongodb+srv://mamedoff2910_db_user:Adil291006@adilmammadov.vjv3p8n.mongodb.net/?appName=AdilMammadov"
-client = MongoClient(MONGO_URI)
+
+# KİMLİK KARTINI (tlsCAFile) MONGODB'YE SUNUYORUZ
+client = MongoClient(MONGO_URI, tlsCAFile=certifi.where())
 db = client.FlexiFitDatabase
 users_collection = db.users
 
@@ -26,9 +28,7 @@ def register():
         users_collection.insert_one(data)
         return jsonify({"message": "Kayit basarili!"}), 201
     except Exception as e:
-        # EĞER ÇÖKERSE RENDER LOGLARINA YAZACAK
-        print("MİDE BULANDIRAN HATA:", str(e)) 
-        return jsonify({"error": "Sunucu hatası: " + str(e)}), 500
+        return jsonify({"error": "Veritabani hatasi: " + str(e)}), 500
 
 @app.route('/auth/login', methods=['POST'])
 def login():
